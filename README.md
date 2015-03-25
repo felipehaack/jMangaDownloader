@@ -13,18 +13,20 @@ First, We need install some dependencies for your system operation.
 3. Download CasperJS:
 4. https://github.com/n1k0/casperjs/zipball/1.1-beta3
 5. Unzip PhantomJS and CasperJS
-6. Make sure just has one hierarchical folder to access all files of the both projects
+6. Make sure just has one hierarchical folder to access all files for each projects
 6. Rename phantomjs folder to phantomjs
 7. Rename casperjs folder to casperjs
 8. Cut both folders and paste it in the C://
-9. Access the PATH environment variable: 
+9. Add new paths to PATH environment variable:
+10. Open console and type
+11. setx PATH "%PATH%;C:\phantomjs\;C:\casperjs\bin"
 
 ###MAC
-1. Open the terminal.
+1. Open the terminal
 2. If you don't have brew and wget: 
 3. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 4. brew install wget
-6. With brew and wget you can to download everything that you need, just do it:
+6. Now install casperjs:
 7. brew install casperjs
 
 ###Linux
