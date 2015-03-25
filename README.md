@@ -13,7 +13,7 @@ First, We need install some dependencies for your system operation.
 3. Download CasperJS:
 4. https://github.com/n1k0/casperjs/zipball/1.1-beta3
 5. Unzip PhantomJS and CasperJS
-6. Make sure that was just one hieraldy folder to access all files of the both projects
+6. Make sure just has one hierarchical folder to access all files of the both projects
 6. Rename phantomjs folder to phantomjs
 7. Rename casperjs folder to casperjs
 8. Cut both folders and paste it in the C://
