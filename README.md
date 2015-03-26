@@ -5,7 +5,7 @@
 How I like so much read manga I'm developing an API with the goal of download all manga chapters from some manga hosting servers. The readers just need to install some dependencies and execute the script with terminal/console, It'll download every pages as a PNG image. The next steps will show how you can to do it.
 
 ##Step by step - Dependencies
-First, We need to install some dependencies for your system operation.
+First, We need to install some dependencies for your operating system.
 
 ###Windows
 1. Download PhantomJS:
@@ -20,9 +20,10 @@ First, We need to install some dependencies for your system operation.
 7. Add new paths to PATH environment variable:
   1. Open console and type
   2. setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
+8. Restart your operating system
 
 ###MAC
-1. Open the terminal
+1. Open the terminaloperating system
 2. If you don't have brew and wget: 
   1. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   2. brew install wget
