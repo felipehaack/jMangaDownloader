@@ -18,7 +18,7 @@ var jMangaDownloader = {
         english: 'There\'s any chapter in english for download!',
         loadedBatoto: 'Batoto - All chapters was loaded with success!',
         loadedMangaReader: 'Manga Reader - All chapters was loaded with success!',
-        totalChapters: 'Total of the chapters obtained is: ',
+        totalChapters: 'Total of the chapters: ',
         downloadingPage: 'Downloading page ',
         done: 'Finally done :)'
     },
@@ -71,9 +71,11 @@ var jMangaDownloader = {
                 this.callbacks.shift();
                 this.inExecuting = false;
 
-                if (this.callbacks.length > 0)
+                if (this.callbacks.length > 0){
+
+                    console.log('');
                     this.execute();
-                else {
+                }else {
                     if (typeof this.callback === 'function') {
 
                         this.callback();
@@ -155,14 +157,16 @@ var jMangaDownloader = {
         },
         start: function (obj) {
 
-            console.log(obj.server.toUpperCase() + ' - Downloading Chapter: ' + obj.chapter);
-
             casper.start(obj.url, function () {
 
                 obj.totalPages = this.evaluate(obj.utils.get.totalPages);
-                if (obj.totalPages !== null)
+                if (obj.totalPages !== null){
+
+                    console.log('');
+                    console.log(obj.server.toUpperCase() + ' - Downloading Chapter: ' + obj.chapter);
+
                     jMangaDownloader.pages.then(obj);
-                else
+                }else
                     jMangaDownloader.pages.start(obj);
             });
 
