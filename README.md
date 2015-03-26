@@ -19,7 +19,7 @@ First, We need install some dependencies for your system operation.
 8. Cut both folders and paste it in the C://
 9. Add new paths to PATH environment variable:
 10. Open console and type
-11. setx PATH "%PATH%;C:\phantomjs\;C:\casperjs\bin"
+11. setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
 
 ###MAC
 1. Open the terminal
