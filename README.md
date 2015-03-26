@@ -23,7 +23,7 @@ First, We need to install some dependencies for your operating system.
 8. Restart your operating system
 
 ###MAC
-1. Open the terminal
+1. Open terminal
 2. If you don't have brew and wget: 
   1. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   2. brew install wget
@@ -31,6 +31,7 @@ First, We need to install some dependencies for your operating system.
   1. brew install casperjs
 
 ###Linux
-1. Download PhantomJS.
+1. Open terminal and type:
+  1. sudo npm install -g casperjs
 
 ##Step by step - Starting API
