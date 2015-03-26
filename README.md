@@ -9,25 +9,25 @@ First, We need to install some dependencies for your system operation.
 
 ###Windows
 1. Download PhantomJS:
-1.2. https://code.google.com/p/phantomjs/downloads/detail?name=phantomjs-1.9.2-windows.zip&can=2&q=
+  1.2. https://code.google.com/p/phantomjs/downloads/detail?name=phantomjs-1.9.2-windows.zip&can=2&q=
 2. Download CasperJS:
-2.1. https://github.com/n1k0/casperjs/zipball/1.1-beta3
+  2.1. https://github.com/n1k0/casperjs/zipball/1.1-beta3
 3. Unzip PhantomJS and CasperJS
-3.1. Make sure just has one hierarchical folder to access all files for each projects
+  3.1. Make sure just has one hierarchical folder to access all files for each projects
 4. Rename phantomjs folder to phantomjs
 5. Rename casperjs folder to casperjs
 6. Cut both folders and paste them in the C://
 7. Add new paths to PATH environment variable:
-7.1. Open console and type
-7.2. setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
+  7.1. Open console and type
+  7.2. setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
 
 ###MAC
 1. Open the terminal
 2. If you don't have brew and wget: 
-2.1. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-2.2. brew install wget
+  2.1. ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  2.2. brew install wget
 3. Now install casperjs:
-3.1. brew install casperjs
+  3.1. brew install casperjs
 
 ###Linux
 1. Download PhantomJS.
