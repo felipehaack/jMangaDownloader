@@ -16,7 +16,7 @@ First, We need to install some dependencies for your system operation.
 3.1. Make sure just has one hierarchical folder to access all files for each projects
 4. Rename phantomjs folder to phantomjs
 5. Rename casperjs folder to casperjs
-6. Cut both folders and paste it in the C://
+6. Cut both folders and paste them in the C://
 7. Add new paths to PATH environment variable:
 7.1. Open console and type
 7.2. setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
