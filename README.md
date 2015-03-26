@@ -5,7 +5,7 @@
 How I like so much read manga I'm developing an API with the goal of download all manga chapters from some manga hosting servers. The readers just need to install some dependencies and execute the script with terminal/console, It'll download every pages as a PNG image. The next steps will show how you can to do it.
 
 ##Step by step - Dependencies
-First, We need to install some dependencies for your operating system.
+First, We need to install some dependencies for each operating system.
 
 ###Windows
 1. Download PhantomJS:
