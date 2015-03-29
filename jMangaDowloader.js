@@ -103,7 +103,7 @@ var jMangaDownloader = {
 
                 if (obj.limit.start <= obj.limit.end) {
 
-                    if (obj.limit.end <= obj.urls.length - 1) {
+                    if (obj.limit.end < obj.urls.length) {
 
                         var newUrls = new Array();
                         for (var i = obj.limit.start; i < obj.limit.end; ++i)
