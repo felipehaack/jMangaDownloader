@@ -90,14 +90,20 @@ var jMangaDownloader = {
         },
         limitChapters: function (obj) {
 
-            if (obj.limit.start > 0 && obj.limit.end > 0) {
+            if (obj.limit.start > 0 || obj.limit.end > 0) {
+
+                --obj.limit.start;
+                --obj.limit.end;
+
+                if(obj.limit.start < 0)
+                    obj.limit.start = 0;
+                
+                if(obj.limit.end < 0)
+                    obj.limit.end = obj.urls.length - 1;
 
                 if (obj.limit.start <= obj.limit.end) {
 
-                    if (obj.limit.end <= obj.urls.length) {
-
-                        --obj.limit.start;
-                        --obj.limit.end;
+                    if (obj.limit.end <= obj.urls.length - 1) {
 
                         var newUrls = new Array();
                         for (var i = obj.limit.start; i <= obj.limit.end; ++i)
