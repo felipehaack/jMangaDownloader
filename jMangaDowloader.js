@@ -103,7 +103,7 @@ var jMangaDownloader = {
 
                 if (obj.limit.start <= obj.limit.end) {
 
-                    if (obj.limit.end < obj.urls.length) {
+                    if (obj.limit.end <= obj.urls.length - 1) {
 
                         var newUrls = new Array();
                         for (var i = obj.limit.start; i < obj.limit.end; ++i)
@@ -171,9 +171,17 @@ var jMangaDownloader = {
                     console.log('');
                     console.log(obj.server.toUpperCase() + ' - Downloading Chapter: ' + obj.chapter);
 
-                    jMangaDownloader.pages.then(obj);
-                }else
-                    jMangaDownloader.pages.start(obj);
+                    casper.then(function(){
+                        
+                        jMangaDownloader.pages.then(obj);
+                    });
+                }else{
+
+                    casper.then(function(){
+
+                        jMangaDownloader.pages.start(obj);
+                    });
+                }
             });
 
             casper.run();
@@ -182,24 +190,42 @@ var jMangaDownloader = {
 
             if (obj.index <= obj.totalPages) {
 
-                casper.start(obj.utils.get.urlPage(obj.url, obj.index), function () {
+                casper.thenOpen(obj.utils.get.urlPage(obj.url, obj.index), function () {
 
                     var url = this.evaluate(obj.utils.get.urlImage);
+
                     if (url !== null) {
                         
-                        console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
-                        
-                        this.download(url, obj.server + '.' + obj.enumerator + '.png', 'GET');
-                        this.clear();
-                        
-                        ++obj.index;
-                        ++obj.enumerator;
-                    }
+                        var timestamp = new Date().getTime();
 
-                    jMangaDownloader.pages.then(obj);
+                        console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
+                        this.download(url, obj.server + '.' + obj.enumerator + '.png', 'GET');
+                        
+                        var timestamp2 = new Date().getTime();
+                        if(timestamp2 - timestamp > 500){
+                            
+                            ++obj.index;
+                            ++obj.enumerator;
+
+                            console.log('Total time: ' + (timestamp2 - timestamp));
+                        }
+
+                        this.clear();
+                    }else
+                        console.log('error doenload then open...');
+
+                    casper.then(function(){
+
+                        jMangaDownloader.pages.then(obj);
+                    });
                 });
-            } else
-                jMangaDownloader.pages.choose(obj);
+            } else{
+
+                casper.then(function(){
+
+                    jMangaDownloader.pages.choose(obj);
+                });
+            }
         },
         choose: function (obj) {
 
