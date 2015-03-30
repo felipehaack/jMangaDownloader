@@ -3,8 +3,8 @@ var casper = require('casper').create({
     verbose: false,
     logLevel: "debug",
     pageSettings: {
-        loadImages: true,
-        loadPlugins: true,
+        loadImages: false,
+        loadPlugins: false,
         webSecurityEnabled: false
     }
 });
@@ -163,7 +163,7 @@ var jMangaDownloader = {
         },
         start: function (obj) {
 
-            casper.start(obj.url, function () {
+            casper.thenOpen(obj.url, function () {
 
                 obj.totalPages = this.evaluate(obj.utils.get.totalPages);
                 if (obj.totalPages !== null){
@@ -177,14 +177,17 @@ var jMangaDownloader = {
                     });
                 }else{
 
+
+                    console.log('erro ao comecar o start do capitulo...');
+
                     casper.then(function(){
+
+                        console.log('erro ao comecar o start do capitulo... recomecar...');
 
                         jMangaDownloader.pages.start(obj);
                     });
                 }
             });
-
-            casper.run();
         },
         then: function (obj) {
 
@@ -202,26 +205,36 @@ var jMangaDownloader = {
                         this.download(url, obj.server + '.' + obj.enumerator + '.png', 'GET');
                         
                         var timestamp2 = new Date().getTime();
-                        if(timestamp2 - timestamp > 500){
+
+                        if(timestamp2 - timestamp > 500 &&  timestamp2 - timestamp < 15000){
                             
                             ++obj.index;
                             ++obj.enumerator;
 
                             console.log('Total time: ' + (timestamp2 - timestamp));
-                        }
+                        }else{
 
-                        this.clear();
+                            console.log('tempo de imagem que deu erro: ' + (timestamp2 - timestamp));
+                        }
                     }else
-                        console.log('error doenload then open...');
+                        console.log('nao foi encontrado a url da pagina...');
+
+                    this.clear();
 
                     casper.then(function(){
+
+                        console.log('vai para a proxima ou atual pagina...');
 
                         jMangaDownloader.pages.then(obj);
                     });
                 });
             } else{
 
+                console.log('terminou um capitulo...');
+
                 casper.then(function(){
+
+                    console.log('terminou um capitulo... choose');
 
                     jMangaDownloader.pages.choose(obj);
                 });
@@ -251,7 +264,10 @@ var jMangaDownloader = {
                             obj.utils = jMangaDownloader.pages.utils[server];
                         }
 
-                        jMangaDownloader.pages.start(obj);
+                        casper.then(function(){
+
+                            jMangaDownloader.pages.start(obj);
+                        });
                     } else {
 
                         var objStart = {
@@ -264,7 +280,14 @@ var jMangaDownloader = {
                             url: jMangaDownloader.struct[server].manga.chapters.urls.shift()
                         };
 
-                        jMangaDownloader.pages.start(objStart);
+                        casper.start();
+
+                        casper.then(function(){
+
+                            jMangaDownloader.pages.start(objStart);
+                        });
+
+                        casper.run();
                     }
 
                     break;
