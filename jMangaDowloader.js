@@ -4,9 +4,11 @@ var casper = require('casper').create({
     logLevel: "debug",
     stepTimeout: 30000,
     waitTimeout: 30000,
-    onStepTimeout: function(self, m){
+    onStepTimeout: function(timeout, step){
 
-       console.log('timeout: step' + m);
+        this.echo('step timeout');
+        this.clear();
+        this.page.stop();
     },
     pageSettings: {
         loadImages: true,
