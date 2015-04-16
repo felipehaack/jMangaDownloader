@@ -1,12 +1,11 @@
-
 var casper = require('casper').create({
     verbose: false,
     logLevel: "debug",
     stepTimeout: 30000,
     waitTimeout: 30000,
-    onStepTimeout: function(timeout, step){
+    onStepTimeout: function(timeout, step) {
 
-        this.echo('step timeout');
+        this.echo('Timeout: retry!');
         this.clear();
         this.page.stop();
     },
@@ -16,8 +15,6 @@ var casper = require('casper').create({
         webSecurityEnabled: false
     }
 });
-
-var block = false;
 
 var jMangaDownloader = {
     alerts: {
@@ -30,6 +27,7 @@ var jMangaDownloader = {
         loadedMangaReader: 'Manga Reader - All chapters was loaded with success!',
         totalChapters: 'Total of the chapters: ',
         downloadingPage: 'Downloading page ',
+        sequenceNumber: 'Sequence number of page: ',
         done: 'Finally done :)'
     },
     struct: {
@@ -61,11 +59,28 @@ var jMangaDownloader = {
         }
     },
     utils: {
+        navigator: {
+            options: [
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/600.5.17 (KHTML, like Gecko) Version/7.1.5 Safari/537.85.14',
+                'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.91 Safari/537.36',
+                'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36',
+                'Mozilla/5.0 (Linux; Android 4.4.4; XT1022 Build/KXC21.5-40) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36',
+                'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12B411',
+                'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0',
+                'Mozilla/5.0 (Linux; U; Android 4.2.2; en-ca; arc 7HD Build/JDQ39) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30',
+                'Mozilla/5.0 (iPad; CPU OS 6_1_3 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Mobile/10B329'
+            ],
+            random: function() {
+
+                return this.options[Math.floor(Math.random() * this.options.length) + 0];
+            }
+        },
         waitFor: {
             callback: '',
             inExecuting: false,
             callbacks: new Array(),
-            execute: function (callback) {
+            execute: function(callback) {
 
                 if (typeof callback === 'function')
                     this.callbacks.push(callback);
@@ -76,16 +91,16 @@ var jMangaDownloader = {
                     this.callbacks[0]();
                 }
             },
-            release: function () {
+            release: function() {
 
                 this.callbacks.shift();
                 this.inExecuting = false;
 
-                if (this.callbacks.length > 0){
+                if (this.callbacks.length > 0) {
 
                     console.log('');
                     this.execute();
-                }else {
+                } else {
                     if (typeof this.callback === 'function') {
 
                         this.callback();
@@ -98,17 +113,17 @@ var jMangaDownloader = {
                 }
             }
         },
-        limitChapters: function (obj) {
+        limitChapters: function(obj) {
 
             if (obj.limit.start > 0 || obj.limit.end > 0) {
 
                 --obj.limit.start;
                 --obj.limit.end;
 
-                if(obj.limit.start < 0)
+                if (obj.limit.start < 0)
                     obj.limit.start = 0;
-                
-                if(obj.limit.end < 0)
+
+                if (obj.limit.end < 0)
                     obj.limit.end = obj.urls.length - 1;
 
                 if (obj.limit.start <= obj.limit.end) {
@@ -129,19 +144,19 @@ var jMangaDownloader = {
         utils: {
             batoto: {
                 get: {
-                    totalPages: function () {
+                    totalPages: function() {
 
                         return document.getElementById('page_select').getElementsByTagName('option').length;
                     },
-                    urlPage: function (url, index) {
+                    urlPage: function(url, index) {
 
                         return  url + '/' + index;
                     },
-                    urlImage: function () {
+                    urlImage: function() {
 
                         return document.getElementById("full_image").getElementsByTagName('img')[0].src;
                     },
-                    divSelector: function(){
+                    divSelector: function() {
 
                         return '#comic_page';
                     }
@@ -149,11 +164,11 @@ var jMangaDownloader = {
             },
             mangareader: {
                 get: {
-                    totalPages: function () {
+                    totalPages: function() {
 
                         return document.getElementById('selectpage').getElementsByTagName('select')[0].getElementsByTagName('option').length;
                     },
-                    urlPage: function (url, index) {
+                    urlPage: function(url, index) {
 
                         url = url.replace('http://', '');
                         url = url.replace('https://', '');
@@ -168,100 +183,85 @@ var jMangaDownloader = {
 
                         return  'http://' + url.substring(0, pos + 1) + index + url.substring(tr, url.length);
                     },
-                    urlImage: function () {
+                    urlImage: function() {
 
                         return document.getElementById("imgholder").getElementsByTagName('a')[0].getElementsByTagName('img')[0].src;
+                    },
+                    divSelector: function() {
+
+                        return '#img';
                     }
                 }
             }
         },
-        start: function (obj) {
+        start: function(obj) {
 
-            casper.thenOpen(obj.url, function () {
+            casper.userAgent(jMangaDownloader.utils.navigator.random());
+
+            casper.thenOpen(obj.url, function() {
 
                 obj.totalPages = this.evaluate(obj.utils.get.totalPages);
-                if (obj.totalPages !== null){
+
+                if (obj.totalPages !== null) {
 
                     console.log('');
-                    console.log(obj.server.toUpperCase() + ' - Downloading Chapter: ' + obj.chapter);
+                    console.log(obj.server.toUpperCase() + ' - Downloading Chapter ' + obj.chapter + ' from ' + obj.totalChapters);
 
-                    casper.then(function(){
-                        
+                    casper.then(function() {
+
                         jMangaDownloader.pages.then(obj);
                     });
-                }else{
+                } else {
 
-
-                    console.log('erro ao comecar o start do capitulo...');
-
-                    casper.then(function(){
-
-                        console.log('erro ao comecar o start do capitulo... recomecar...');
+                    casper.then(function() {
 
                         jMangaDownloader.pages.start(obj);
                     });
                 }
             });
         },
-        then: function (obj) {
+        then: function(obj) {
 
             if (obj.index <= obj.totalPages) {
 
-                console.log('Go to page: ' + obj.utils.get.urlPage(obj.url, obj.index));
-
-                casper.thenOpen(obj.utils.get.urlPage(obj.url, obj.index), function () {
+                casper.thenOpen(obj.utils.get.urlPage(obj.url, obj.index), function() {
 
                     var url = this.evaluate(obj.utils.get.urlImage);
 
                     if (url !== null) {
 
-                        this.waitForSelector(obj.utils.get.divSelector(), function(){
-
-                            var timestamp = new Date().getTime();
+                        this.waitForSelector(obj.utils.get.divSelector(), function() {
 
                             console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
+                            console.log(jMangaDownloader.alerts.sequenceNumber + obj.enumerator);
 
                             this.captureSelector(obj.server + '.' + obj.enumerator + '.png', obj.utils.get.divSelector());
-
-                            var timestamp2 = new Date().getTime();
-
-                            console.log('Total time: ' + (timestamp2 - timestamp));
 
                             ++obj.index;
                             ++obj.enumerator;
 
-                            casper.then(function(){
-
-                                console.log('vai para a proxima ou atual pagina 2...');
+                            casper.then(function() {
 
                                 jMangaDownloader.pages.then(obj);
                             });
                         });
-                    }else{
+                    } else {
 
-                        console.log('nao foi encontrado a url da pagina...');
-
-                        casper.then(function(){
-
-                            console.log('vai para a proxima ou atual pagina...');
+                        casper.then(function() {
 
                             jMangaDownloader.pages.then(obj);
                         });
                     }
                 });
-            } else{
+            } else {
 
-                console.log('terminou um capitulo...');
-
-                casper.then(function(){
-
-                    console.log('terminou um capitulo... choose');
+                casper.then(function() {
 
                     jMangaDownloader.pages.choose(obj);
                 });
             }
         },
-        choose: function (obj) {
+        choose: function(obj) {
 
             var hasObj = false;
 
@@ -285,7 +285,7 @@ var jMangaDownloader = {
                             obj.utils = jMangaDownloader.pages.utils[server];
                         }
 
-                        casper.then(function(){
+                        casper.then(function() {
 
                             jMangaDownloader.pages.start(obj);
                         });
@@ -295,6 +295,7 @@ var jMangaDownloader = {
                             index: 1,
                             chapter: 1,
                             totalPages: 0,
+                            totalChapters: jMangaDownloader.struct[server].manga.chapters.urls.length,
                             enumerator: jMangaDownloader.struct[server].manga.chapters.label,
                             server: server,
                             utils: jMangaDownloader.pages.utils[server],
@@ -303,7 +304,7 @@ var jMangaDownloader = {
 
                         casper.start();
 
-                        casper.then(function(){
+                        casper.then(function() {
 
                             jMangaDownloader.pages.start(objStart);
                         });
@@ -321,7 +322,7 @@ var jMangaDownloader = {
                 casper.exit();
             }
         },
-        init: function () {
+        init: function() {
 
             jMangaDownloader.pages.choose();
         }
@@ -329,11 +330,11 @@ var jMangaDownloader = {
     chapters: {
         batoto: {
             utils: {
-                isExpand: function () {
+                isExpand: function() {
 
                     return typeof document.getElementsByClassName('chapter_row_expand')[0] !== 'undefined' ? true : false;
                 },
-                isManga: function () {
+                isManga: function() {
 
                     var tds = document.getElementsByTagName('td');
 
@@ -346,7 +347,7 @@ var jMangaDownloader = {
 
                     return false;
                 },
-                getChapters: function () {
+                getChapters: function() {
 
                     var chapters = document.getElementsByClassName('row lang_English chapter_row');
 
@@ -354,17 +355,31 @@ var jMangaDownloader = {
 
                         var urls = new Array();
 
-                        for (var i = (chapters.length - 1); i >= 0; --i)
-                            urls.push(chapters[i].getElementsByTagName('td')[0].getElementsByTagName('a')[0].href);
+                        for (var i = (chapters.length - 1); i >= 0; --i) {
+
+                            var url = chapters[i].getElementsByTagName('td')[0].getElementsByTagName('a')[0].href;
+
+                            if (urls.length > 0) {
+
+                                var chNew = new RegExp(/_ch[0-9]+/i).exec(url);
+                                var chNOld = new RegExp(/_ch[0-9]+/i).exec(urls[urls.length - 1]);
+
+                                if (chNew === chNOld)
+                                    url = '';
+                            }
+
+                            if (url !== '')
+                                urls.push(url);
+                        }
 
                         return urls;
                     } else
                         return [];
                 }
             },
-            start: function () {
+            start: function() {
 
-                casper.start(jMangaDownloader.struct.batoto.manga.url, function () {
+                casper.start(jMangaDownloader.struct.batoto.manga.url, function() {
 
                     if (this.evaluate(jMangaDownloader.chapters.batoto.utils.isManga)) {
 
@@ -381,7 +396,7 @@ var jMangaDownloader = {
                         console.log(jMangaDownloader.alerts.isManga);
                 });
 
-                casper.run(function () {
+                casper.run(function() {
 
                     console.log(jMangaDownloader.alerts.loadedBatoto);
                     console.log(jMangaDownloader.alerts.totalChapters + jMangaDownloader.struct.batoto.manga.chapters.urls.length);
@@ -389,18 +404,18 @@ var jMangaDownloader = {
                     jMangaDownloader.utils.waitFor.release();
                 });
             },
-            init: function () {
+            init: function() {
 
                 jMangaDownloader.chapters.batoto.start();
             }
         },
         mangareader: {
             utils: {
-                isManga: function () {
+                isManga: function() {
 
                     return document.getElementById('mangaproperties').getElementsByTagName('h1')[0].innerHTML.indexOf('Manga') > -1 ? true : false;
                 },
-                getChapters: function () {
+                getChapters: function() {
 
                     var chapters = document.getElementById('chapterlist').getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
@@ -416,9 +431,9 @@ var jMangaDownloader = {
                         return [];
                 }
             },
-            run: function () {
+            run: function() {
 
-                casper.start(jMangaDownloader.struct.mangareader.manga.url, function () {
+                casper.start(jMangaDownloader.struct.mangareader.manga.url, function() {
 
                     if (this.evaluate(jMangaDownloader.chapters.mangareader.utils.isManga)) {
 
@@ -432,7 +447,7 @@ var jMangaDownloader = {
                         console.log(jMangaDownloader.alerts.isManga);
                 });
 
-                casper.run(function () {
+                casper.run(function() {
 
                     console.log(jMangaDownloader.alerts.loadedMangaReader);
                     console.log(jMangaDownloader.alerts.totalChapters + jMangaDownloader.struct.mangareader.manga.chapters.urls.length);
@@ -440,14 +455,13 @@ var jMangaDownloader = {
                     jMangaDownloader.utils.waitFor.release();
                 });
             },
-            init: function () {
+            init: function() {
 
                 jMangaDownloader.chapters.mangareader.run();
             }
         }
     },
-    /* wait to get all chapters url from servers and after start to get all images for each chapter */
-    start: function () {
+    start: function() {
 
         jMangaDownloader.utils.waitFor.callback = jMangaDownloader.pages.init;
 
@@ -462,28 +476,28 @@ var jMangaDownloader = {
                         switch (server) {
 
                             case 'batoto':
-                            {
+                                {
 
-                                jMangaDownloader.utils.waitFor.execute(jMangaDownloader.chapters.batoto.init);
+                                    jMangaDownloader.utils.waitFor.execute(jMangaDownloader.chapters.batoto.init);
 
-                                break;
-                            }
+                                    break;
+                                }
 
                             case 'mangareader':
-                            {
+                                {
 
-                                jMangaDownloader.utils.waitFor.execute(jMangaDownloader.chapters.mangareader.init);
+                                    jMangaDownloader.utils.waitFor.execute(jMangaDownloader.chapters.mangareader.init);
 
-                                break;
-                            }
+                                    break;
+                                }
 
                             default :
-                            {
+                                {
 
-                                console.log(jMangaDownloader.alerts.serverChoose + server);
+                                    console.log(jMangaDownloader.alerts.serverChoose + server);
 
-                                break;
-                            }
+                                    break;
+                                }
                         }
                     } else
                         console.log(jMangaDownloader.alerts.urlMangaExist + jMangaDownloader.manga[server].url);
@@ -492,15 +506,14 @@ var jMangaDownloader = {
                 console.log(jMangaDownloader.alerts.urlManga);
         }
     },
-    init: function () {
+    init: function() {
 
         this.start();
     }
 };
 
 jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/one-piece-digital-colored-comics-r10004';
-jMangaDownloader.struct.batoto.manga.chapters.limit.start = 522;
-jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
-jMangaDownloader.struct.batoto.manga.chapters.label = 1455;
+jMangaDownloader.struct.batoto.manga.chapters.limit.start = 394;
+jMangaDownloader.struct.batoto.manga.chapters.label = 7869;
 
 jMangaDownloader.init();
