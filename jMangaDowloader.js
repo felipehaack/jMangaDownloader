@@ -161,18 +161,7 @@ var jMangaDownloader = {
                     },
                     urlPage: function (url, index) {
 
-                        url = url.replace('http://', '');
-                        url = url.replace('https://', '');
-
-                        var tr = url.indexOf('/');
-                        tr = url.indexOf('/', tr + 1);
-
-                        var pos;
-                        for (pos = tr; pos > 0; --pos)
-                            if (url[pos] === '-')
-                                break;
-
-                        return  'http://' + url.substring(0, pos + 1) + index + url.substring(tr, url.length);
+                        return  url + '/' + index;
                     },
                     urlImage: function () {
 
@@ -298,6 +287,10 @@ var jMangaDownloader = {
                         });
 
                         hasObj = true;
+                    }else{
+
+                        jMangaDownloader.struct[server].manga.chapters.urls = new Array();
+                        obj = undefined;
                     }
 
 
