@@ -28,6 +28,7 @@ var jMangaDownloader = {
         totalChapters: 'Total of the chapters: ',
         downloadingPage: 'Downloading page ',
         sequenceNumber: 'Sequence number of page: ',
+        savePoint: '.savepoint',
         done: 'Finally done :)'
     },
     struct: {
@@ -82,7 +83,7 @@ var jMangaDownloader = {
                 var save = 'jMangaDownloader.struct.' + server + '.manga.chapters.limit.start = ' + (chapter + 1) + '; \n'
                 save += 'jMangaDownloader.struct.'+ server + '.manga.chapters.label = ' + enumerator + ';'
 
-                fs.write('../' + server + '-SavePoint.txt', save, 'w');
+                fs.write('../' + server + jMangaDownloader.alerts.savePoint + '.txt', save, 'w');
             },
             directory: function(name){
 
