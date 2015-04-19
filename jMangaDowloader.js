@@ -59,6 +59,51 @@ var jMangaDownloader = {
         }
     },
     utils: {
+        is: {
+            mainDirectory: true
+        },
+        get: {
+            fileSystem: function(){
+
+                return require('fs');
+            }
+        },
+        set: {
+            mainDirectory: function () {
+                
+                jMangaDownloader.utils.is.mainDirectory = false;
+            }
+        },
+        create: {
+            savePoint: function (server, chapter, enumerator) {
+                
+                var fs = jMangaDownloader.utils.get.fileSystem();
+
+                var save = 'jMangaDownloader.struct.' + server + '.manga.chapters.limit.start = ' + (chapter + 1) + '; \n'
+                save += 'jMangaDownloader.struct.'+ server + '.manga.chapters.label = ' + enumerator + ';'
+
+                fs.write('../' + server + '-SavePoint.txt', save, 'w');
+            },
+            directory: function(name){
+
+                if(!jMangaDownloader.utils.is.mainDirectory)
+                    jMangaDownloader.utils.change.directory('../');
+
+                var fs = jMangaDownloader.utils.get.fileSystem();
+                fs.makeDirectory(name);
+
+                jMangaDownloader.utils.change.directory(name);
+            }
+        },
+        change: {
+            directory: function (name) {
+                
+                var fs = jMangaDownloader.utils.get.fileSystem();
+                fs.changeWorkingDirectory(name);   
+
+                jMangaDownloader.utils.set.mainDirectory();
+            }
+        },
         navigator: {
             options: [
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36',
@@ -98,7 +143,6 @@ var jMangaDownloader = {
 
                 if (this.callbacks.length > 0) {
 
-                    console.log('');
                     this.execute();
                 } else {
                     if (typeof this.callback === 'function') {
@@ -184,6 +228,8 @@ var jMangaDownloader = {
 
                 if (obj.totalPages !== null) {
 
+                    jMangaDownloader.utils.create.savePoint(obj.server, obj.chapter, obj.enumerator);
+
                     console.log('');
                     console.log(obj.server.toUpperCase() + ' - Downloading Chapter ' + (obj.chapter + 1) + ' to ' + (obj.end + 1) + ' from ' + obj.totalChapters);
 
@@ -250,6 +296,8 @@ var jMangaDownloader = {
                 if (jMangaDownloader.struct[server].manga.chapters.urls.length > 0) {
 
                     if (typeof obj === 'undefined') {
+
+                        jMangaDownloader.utils.create.directory(server);
 
                         var firstTime = true;
 
@@ -403,6 +451,7 @@ var jMangaDownloader = {
 
                 casper.run(function () {
 
+                    console.log('');
                     console.log(jMangaDownloader.alerts.loadedBatoto);
                     console.log(jMangaDownloader.alerts.totalChapters + jMangaDownloader.struct.batoto.manga.chapters.urls.length);
 
@@ -468,6 +517,7 @@ var jMangaDownloader = {
 
                 casper.run(function () {
 
+                    console.log('');
                     console.log(jMangaDownloader.alerts.loadedMangaReader);
                     console.log(jMangaDownloader.alerts.totalChapters + jMangaDownloader.struct.mangareader.manga.chapters.urls.length);
 
