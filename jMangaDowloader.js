@@ -29,7 +29,7 @@ var jMangaDownloader = {
         downloadingPage: 'Downloading page ',
         sequenceNumber: 'Sequence number of page: ',
         savePoint: '.savepoint',
-        notFoundPage: 'Manga page not found, try again!',
+        notFoundPage: 'Page not found, try again!',
         done: 'Finally done :)'
     },
     struct: {
