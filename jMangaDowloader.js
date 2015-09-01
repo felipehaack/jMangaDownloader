@@ -1,8 +1,8 @@
 var casper = require('casper').create({
     verbose: false,
     logLevel: "debug",
-    stepTimeout: 30000,
-    waitTimeout: 30000,
+    stepTimeout: 90000,
+    waitTimeout: 90000,
     onStepTimeout: function (timeout, step) {
 
         this.echo('Timeout: retry!');
@@ -29,6 +29,7 @@ var jMangaDownloader = {
         downloadingPage: 'Downloading page ',
         sequenceNumber: 'Sequence number of page: ',
         savePoint: '.savepoint',
+        notFoundPage: 'Manga page not found, try again!',
         done: 'Finally done :)'
     },
     struct: {
@@ -262,10 +263,18 @@ var jMangaDownloader = {
                             console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
                             console.log(jMangaDownloader.alerts.sequenceNumber + obj.enumerator);
 
-                            this.captureSelector(obj.server + '.' + obj.enumerator + '.png', obj.utils.get.divSelector());
+                            this.captureSelector(obj.enumerator + '.' + obj.server + '.png', obj.utils.get.divSelector());
 
                             ++obj.index;
                             ++obj.enumerator;
+
+                            casper.then(function () {
+
+                                jMangaDownloader.pages.then(obj);
+                            });
+                        }, function(){
+
+                            console.log(jMangaDownloader.alerts.notFoundPage);
 
                             casper.then(function () {
 
@@ -383,10 +392,7 @@ var jMangaDownloader = {
                         if (tds[i].innerHTML === 'Type:')
                             break;
 
-                    if (tds[i + 1].innerHTML.indexOf('Manga') > -1)
-                        return true;
-
-                    return false;
+                    return tds[i + 1].innerHTML.match('Manga|Manhua') ? true : false;
                 },
                 getChapters: function () {
 
