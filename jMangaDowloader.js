@@ -175,6 +175,12 @@ var jMangaDownloader = {
                 obj.limit.start = 0;
                 obj.limit.end = obj.urls.length - 1;
             }
+            
+            var newUrls = new Array();
+            for (var i = obj.limit.start; i <= obj.limit.end; ++i)
+                newUrls.push(obj.urls[i]);
+
+            obj.urls = newUrls;
         }
     },
     pages: {
