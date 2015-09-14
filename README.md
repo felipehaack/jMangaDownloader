@@ -60,3 +60,31 @@ First, We need to install some dependencies for each operating system.
   2. **Mac / Linux**: cd /Users/UserName/Desktop/MyFolderName
 7. Go to CMD / Terminal application and paste it
 8. Press ENTER key
+
+### jMandaDownloader.js
+
+1. Open the jMangaDownloader.js with text editor
+2. Go to the end of file
+3. You can to see the follow lines:
+
+```
+jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-r9803';
+jMangaDownloader.struct.batoto.manga.chapters.limit.start = 1;
+jMangaDownloader.struct.batoto.manga.chapters.limit.end = 2;
+
+jMangaDownloader.struct.mangareader.manga.url = 'http://www.mangareader.net/world-trigger';
+jMangaDownloader.struct.mangareader.manga.chapters.limit.start = 1;
+jMangaDownloader.struct.mangareader.manga.chapters.limit.end = 2;
+```
+
+- Currently this API support batoto and mangareader english language
+- Now if you want to download a manga from batoto change the follow URL:
+```
+jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-r9803';
+```
+- If you want to download a manga from start point or end up at some chapters number change the follow numbers:
+```
+jMangaDownloader.struct.batoto.manga.chapters.limit.start = -1;
+jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
+```
+- PS: The -1 negative number tell to the API to download all chapters.
