@@ -6,7 +6,7 @@ How I read many manga I'm developing an API with the goal of download all manga 
 
 ##Step by step - Dependencies
 
-First, We need to install some dependencies for each operating system.
+First, you need to install some dependencies for each operating system.
 
 ###Windows
 
@@ -61,7 +61,7 @@ First, We need to install some dependencies for each operating system.
 7. Go to CMD / Terminal application and paste it
 8. Press ENTER key
 
-### jMandaDownloader.js
+### Using jMandaDownloader.js
 
 1. Open the jMangaDownloader.js with text editor
 2. Go to the end of file
@@ -87,9 +87,8 @@ jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeo
 jMangaDownloader.struct.batoto.manga.chapters.limit.start = -1;
 jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 ```
-- PS: The -1 negative number tell to the API to download all chapters.
-- Now, you can to do the same way for mangareader, like change the URL and if you wish, adding a start or end point.
-
+- PS: The -1 tell to the API to download all chapters.
+- Now, you can to do the same for mangareader, like change the URL and if you wish, adding a start or end point.
 
 ### Finally
 
@@ -97,8 +96,8 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 2. Type the follow command:
 3. casperjs jMangaDownload.js
 4. Now you can to see every page downloading
-5. In the end you see the follow message: Finally done :)
+5. When all chapters was downloaded you see this message: Finally done :)
 
 ## Save Point
 
-- Do you want to shut down your computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open the file and replace the datas from jMangaDownloader.js.
+- Do you want to shutdown your computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open each file and replace the datas into jMangaDownloader.js.
