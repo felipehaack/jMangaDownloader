@@ -596,11 +596,11 @@ var jMangaDownloader = {
 };
 
 jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-r9803';
-jMangaDownloader.struct.batoto.manga.chapters.limit.start = 1;
-jMangaDownloader.struct.batoto.manga.chapters.limit.end = 2;
+jMangaDownloader.struct.batoto.manga.chapters.limit.start = -1;
+jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 
 jMangaDownloader.struct.mangareader.manga.url = 'http://www.mangareader.net/world-trigger';
-jMangaDownloader.struct.mangareader.manga.chapters.limit.start = 1;
-jMangaDownloader.struct.mangareader.manga.chapters.limit.end = 2;
+jMangaDownloader.struct.mangareader.manga.chapters.limit.start = -1;
+jMangaDownloader.struct.mangareader.manga.chapters.limit.end = -1;
 
 jMangaDownloader.init();
