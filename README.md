@@ -54,7 +54,7 @@ First, We need to install some dependencies for each operating system.
   1. If you use **Window System**, change all bars from local path to backslash (ex: C:\Users\UserName\Desktop to C:/Users/UserName/Desktop)
 7. Add your folder name with a bar at the end of text
   1. **Windows**: C:/Users/UserName/Desktop/MyFolderName
-  2. **Mac / Linux**: /Users/UserName/Desktop
+  2. **Mac / Linux**: /Users/UserName/Desktop/MyFolderName
 6. Add cd to the begin of text
   1. **Windows**: cd C:/Users/UserName/Desktop/MyFolderName
   2. **Mac / Linux**: cd /Users/UserName/Desktop/MyFolderName
