@@ -97,8 +97,8 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 2. Type the follow command:
 3. casperjs jMangaDownload.js
 4. Now you can to see every page downloading
-5. 
+5. In the end you see the follow message: Finally done :)
 
 ## Save Point
 
-- If you want to shut down you computer? Don't worry, do it, because there's a savepoint for batoto and mangareader inside the manga folder. Just open the file and repeat the datas inside to the jMangaDownload.js.
+- Do you want to shut down you computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open the file and repeat the datas from jMangaDownload.js.
