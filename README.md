@@ -88,3 +88,17 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.start = -1;
 jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 ```
 - PS: The -1 negative number tell to the API to download all chapters.
+- Now, you can to do the same way for mangareader, like change the URL and if you wish, adding a start or end point.
+
+
+### Finally
+
+1. Go to CMD / Terminal
+2. Type the follow command:
+3. casperjs jMangaDownload.js
+4. Now you can to see every page downloading
+5. 
+
+## Save Point
+
+- If you want to shut down you computer? Don't worry, do it, because there's a savepoint for batoto and mangareader inside the manga folder. Just open the file and repeat the datas inside to the jMangaDownload.js.
