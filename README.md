@@ -2,7 +2,7 @@
 
 ##Introducting
 
-How I read many manga I'm developing an API with the goal of download all manga chapters from some manga hosting servers. You just need to install some dependencies and execute the script with terminal/console, It'll download every pages as a image (of course). The next steps will teach how you can to use it.
+How I read many manga I'm developing an API with the goal of download all manga chapters from some manga hosting servers. You just need to install some dependencies and execute the script with terminal/console, It'll download every pages as an image (of course). The next steps will teach how you can to use it.
 
 ##Step by step - Dependencies
 
