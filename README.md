@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #jMangaDownloader
 
 ##Introducting
@@ -101,3 +102,6 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 ## Save Point
 
 - Do you want to shutdown your computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open each file and replace the datas into jMangaDownloader.js.
+=======
+
+>>>>>>> master
