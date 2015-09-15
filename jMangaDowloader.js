@@ -269,7 +269,7 @@ var jMangaDownloader = {
                             console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
                             console.log(jMangaDownloader.alerts.sequenceNumber + obj.enumerator);
 
-                            this.captureSelector(obj.enumerator + '.' + obj.server + '.png', obj.utils.get.divSelector());
+                            this.captureSelector(obj.enumerator + '.png', obj.utils.get.divSelector());
 
                             ++obj.index;
                             ++obj.enumerator;
