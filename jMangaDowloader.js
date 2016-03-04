@@ -411,18 +411,7 @@ var jMangaDownloader = {
                         for (var i = (chapters.length - 1); i >= 0; --i) {
 
                             var url = chapters[i].getElementsByTagName('td')[0].getElementsByTagName('a')[0].href;
-
-                            if (urls.length > 0) {
-
-                                var chNew = new RegExp(/_ch[0-9]+/i).exec(url);
-                                var chNOld = new RegExp(/_ch[0-9]+/i).exec(urls[urls.length - 1]);
-
-                                if (chNew === chNOld)
-                                    url = '';
-                            }
-
-                            if (url !== '')
-                                urls.push(url);
+                            urls.push(url);
                         }
 
                         return urls;
