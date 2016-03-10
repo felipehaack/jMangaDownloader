@@ -193,7 +193,7 @@ var jMangaDownloader = {
                     },
                     urlPage: function (url, index) {
 
-                        return  url + '/' + index;
+                        return  url + '_' + index;
                     },
                     urlImage: function () {
 
@@ -579,6 +579,8 @@ var jMangaDownloader = {
         }
     },
     init: function () {
+        
+        casper.userAgent(jMangaDownloader.utils.navigator.random());
 
         this.start();
     }
