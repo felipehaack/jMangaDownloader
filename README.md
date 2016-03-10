@@ -88,6 +88,13 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 - PS: The -1 tells the API to download all chapters.
 - Now, you can to do the same for mangareader, change the URL and if you wish, adding a start or end point.
 
+- If you need to use the batoto to download your favorite manga, insert your username and password like this:
+```
+jMangaDownloader.struct.batoto.user.login = 'your_username';
+jMangaDownloader.struct.batoto.user.password = 'your_password';
+```
+- This informations is needs because the batoto website limit the amount of chapters that an anonymous user can to see.
+
 ### Finally
 
 1. Go to CMD / Terminal
