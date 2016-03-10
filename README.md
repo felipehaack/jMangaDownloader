@@ -93,13 +93,13 @@ jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 jMangaDownloader.struct.batoto.user.login = 'your_username';
 jMangaDownloader.struct.batoto.user.password = 'your_password';
 ```
-- This informations is needs because the batoto website limit the amount of chapters that an anonymous user can to see.
+- This informations is need because the batoto website limit the amount of chapters that an anonymous user can to see.
 
 ### Finally
 
 1. Go to CMD / Terminal
 2. Type the following command:
-3. casperjs jMangaDownload.js
+3. casperjs --config=<(echo '{"sslProtocol": "any"}') --ignore-ssl-errors=true jMangaDownload.js
 4. Now you can see every page downloading
 5. When all chapters are downloaded, you will see this message: Finally done :)
 
