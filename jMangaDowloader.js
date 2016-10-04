@@ -29,7 +29,6 @@ var jMangaDownloader = {
         downloadingPage: 'Downloading page ',
         sequenceNumber: 'Sequence number of page: ',
         savePoint: '.savepoint',
-        notFoundPage: 'Page not found, try again!',
         done: 'Finally done :)'
     },
     struct: {
@@ -269,28 +268,18 @@ var jMangaDownloader = {
 
                     if (url !== null) {
 
-                        this.waitForSelector(obj.utils.get.divSelector(), function() {
+                        console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
+                        console.log(jMangaDownloader.alerts.sequenceNumber + obj.enumerator);
 
-                            console.log(jMangaDownloader.alerts.downloadingPage + obj.index + ' of ' + obj.totalPages);
-                            console.log(jMangaDownloader.alerts.sequenceNumber + obj.enumerator);
+                        //this.captureSelector(obj.enumerator + '.png', 'img');
+                        this.download(url, obj.enumerator + '.png');
 
-                            this.captureSelector(obj.enumerator + '.png', obj.utils.get.divSelector());
+                        ++obj.index;
+                        ++obj.enumerator;
 
-                            ++obj.index;
-                            ++obj.enumerator;
+                        casper.then(function() {
 
-                            casper.then(function() {
-
-                                jMangaDownloader.pages.then(obj);
-                            });
-                        }, function() {
-
-                            console.log(jMangaDownloader.alerts.notFoundPage);
-
-                            casper.then(function() {
-
-                                jMangaDownloader.pages.then(obj);
-                            });
+                            jMangaDownloader.pages.then(obj);
                         });
                     } else {
 
@@ -606,9 +595,9 @@ var jMangaDownloader = {
     }
 };
 
-jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-r9803';
-jMangaDownloader.struct.batoto.user.login = 'your_username';
-jMangaDownloader.struct.batoto.user.password = 'your_password';
+jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/12-beast-r8357';
+jMangaDownloader.struct.batoto.user.login = 'USER_NAME';
+jMangaDownloader.struct.batoto.user.password = 'PASSWORD';
 jMangaDownloader.struct.batoto.manga.chapters.limit.start = -1;
 jMangaDownloader.struct.batoto.manga.chapters.limit.end = -1;
 
