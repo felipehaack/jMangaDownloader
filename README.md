@@ -99,7 +99,7 @@ jMangaDownloader.struct.batoto.user.password = 'your_password';
 
 1. Go to CMD / Terminal
 2. Type the following command:
-3. casperjs --config=<(echo '{"sslProtocol": "any"}') --ignore-ssl-errors=true jMangaDownload.js
+3. casperjs --ssl-protocol=any --ignore-ssl-errors=true jMangaDownload.js
 4. Now you can see every page downloading
 5. When all chapters are downloaded, you will see this message: Finally done :)
 
