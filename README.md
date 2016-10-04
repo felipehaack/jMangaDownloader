@@ -9,9 +9,9 @@ First, you need to install some dependencies depending on your operating system.
 ###Windows
 
 1. Download PhantomJS:
-  1. https://code.google.com/p/phantomjs/downloads/detail?name=phantomjs-1.9.2-windows.zip&can=2&q=
+  1. https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/phantomjs/phantomjs-1.9.2-windows.zip
 2. Download CasperJS:
-  1. https://github.com/n1k0/casperjs/zipball/1.1-beta3
+  1. https://github.com/casperjs/casperjs/archive/1.1.3.zip
 3. Unzip PhantomJS and CasperJS
   1. Make sure just has one hierarchical folder to access all files for each projects
 4. Rename phantomjs folder to phantomjs
@@ -19,7 +19,7 @@ First, you need to install some dependencies depending on your operating system.
 6. Cut both folders and paste them in the C://
 7. Adding new paths application to your PATH Environment Variable:
   1. Search for CMD and open it
-  2. Type the following command: setx PATH "%PATH%;C:\phantomjs;C:\casperjs\batchbin"
+  2. Type the following command: setx PATH "%PATH%;C:\phantomjs;C:\casperjs\bin"
   4. Press ENTER key
 8. Restart your operating system
 
