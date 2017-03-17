@@ -1,10 +1,10 @@
 ##Introduction
 
-Since I read a lot of manga, I'm developing an API with the goal of download all chapters from some manga hosting servers. You just need to install some dependencies and execute the script with the terminal/console, It'll download every pages as an image (of course). The next steps will teach you how you can use it.
+Since I read a lot of manga, I'm developing an API with the goal of downloading all chapters from some specific manga hosting servers. You just need to install some dependencies and execute the script with the terminal/console, It'll download every page as an image (of course). The next steps will teach you how you can use it.
 
 ##Step by step - Dependencies
 
-First, you need to install some dependencies depending on your operating system.
+First, you'll need to install some dependencies depending on your operating system.
 
 ###Windows
 
@@ -13,7 +13,7 @@ First, you need to install some dependencies depending on your operating system.
 2. Download CasperJS:
   1. https://github.com/casperjs/casperjs/archive/1.1.3.zip
 3. Unzip PhantomJS and CasperJS
-  1. Make sure just has one hierarchical folder to access all files for each projects
+  1. Make sure you have just one hierarchical folder to access all files for each project
 4. Rename phantomjs folder to phantomjs
 5. Rename casperjs folder to casperjs
 6. Cut both folders and paste them in the C://
@@ -61,8 +61,8 @@ First, you need to install some dependencies depending on your operating system.
 
 ### Using jMandaDownloader.js
 
-1. Open the jMangaDownloader.js with text editor
-2. Go to the end of file
+1. Open the jMangaDownloader.js with a text editor
+2. Go to the end of the file
 3. You can see the following lines:
 
 ```
@@ -76,7 +76,7 @@ jMangaDownloader.struct.mangareader.manga.chapters.limit.end = 2;
 ```
 
 - Currently this API supports batoto and mangareader english language
-- Now if you want to download a manga from batoto change the follow URL:
+- Now if you want to download a manga from batoto change the following URL:
 ```
 jMangaDownloader.struct.batoto.manga.url = 'http://bato.to/comic/_/comics/dungeon-ni-deai-wo-motomeru-no-wa-machigatteiru-darou-ka-r9803';
 ```
@@ -105,4 +105,4 @@ jMangaDownloader.struct.batoto.user.password = 'your_password';
 
 ## Save Point
 
-- Do you want to shutdown your computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open each file and replace the data into jMangaDownloader.js.
+- Do you want to shutdown your computer? Don't worry, do it, because there's a savepoint file for batoto and mangareader inside the manga folder. Just open each file and replace the data in jMangaDownloader.js.
